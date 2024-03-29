@@ -4,4 +4,6 @@ project(CDataFrame C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(CDataFrame
-        main.c)
+        main.c
+        structures.c
+        structures.h)
