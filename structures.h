@@ -34,6 +34,13 @@ typedef struct{
 */
 int insert_value(COLUMN *col, void *value);
 
+/**
+* @brief: Free the space allocated by a column
+* @param1: Pointer to the column
+*/
+void delete_column(COLUMN **col);
+
+
 
 typedef struct{
 
