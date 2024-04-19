@@ -34,7 +34,7 @@ int insert_value(COLUMN *col, void *value)
         return insertion;
 
     // Check if there is a need to resize
-    if (col->lSize == col->pSize)
+    if (col->lSize >= col->pSize)
     {
         // Double the previous physical size
         int new_pSize = col->pSize * 2;
