@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "CDataFrame.exe"
   "CDataFrame.exe.manifest"
   "CDataFrame.pdb"
+  "CMakeFiles/CDataFrame.dir/cdataframe.c.obj"
+  "CMakeFiles/CDataFrame.dir/cdataframe.c.obj.d"
   "CMakeFiles/CDataFrame.dir/column.c.obj"
   "CMakeFiles/CDataFrame.dir/column.c.obj.d"
   "CMakeFiles/CDataFrame.dir/main.c.obj"

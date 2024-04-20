@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/lelia/CLion projects/Project_CDataframe/cdataframe.c" "CMakeFiles/CDataFrame.dir/cdataframe.c.obj" "gcc" "CMakeFiles/CDataFrame.dir/cdataframe.c.obj.d"
   "C:/Users/lelia/CLion projects/Project_CDataframe/column.c" "CMakeFiles/CDataFrame.dir/column.c.obj" "gcc" "CMakeFiles/CDataFrame.dir/column.c.obj.d"
   "C:/Users/lelia/CLion projects/Project_CDataframe/main.c" "CMakeFiles/CDataFrame.dir/main.c.obj" "gcc" "CMakeFiles/CDataFrame.dir/main.c.obj.d"
   )
