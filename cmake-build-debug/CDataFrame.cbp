@@ -74,6 +74,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/lelia/CLion projects/Project_CDataframe/cdataframe.cpp">
+			<Option target="CDataFrame"/>
+		</Unit>
 		<Unit filename="C:/Users/lelia/CLion projects/Project_CDataframe/cdataframe.h">
 			<Option target="CDataFrame"/>
 		</Unit>
