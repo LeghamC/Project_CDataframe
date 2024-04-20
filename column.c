@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include "structures.h"
+#include "column.h"
 
 /**
  * @brief Creates an empty column with the given title
