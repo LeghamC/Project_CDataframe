@@ -2,6 +2,7 @@
 #define STRUCTURES_H
 
 #define REALLOC_SIZE 256
+#define STR_LENGTH 50
 
 typedef enum{
     NULLVAL = 1 , UINT, INT, CHAR, FLOAT, DOUBLE, STRING, STRUCTURE

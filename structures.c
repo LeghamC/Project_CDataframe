@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdint.h>
 #include "structures.h"
 
 /**
@@ -49,60 +51,81 @@ int insert_value(COLUMN *col, void *value)
     // Insert the values by column's type
     switch (col->type)
     {
-        case INT:
+        case UINT:
         {
-            // Allocate memory for the new integer value
-            col->data[col->lSize] = malloc(sizeof(int));
+            // Allocation for uint values
+            col->data[col->lSize] = malloc(sizeof(unsigned int));
             if (col->data[col->lSize] == NULL)
                 return insertion;
-            // Copy the integer value into the allocated memory
-            *((int *) col->data[col->lSize]) = *((int *) value);
+            // Copy the uint value into allocated memory
+            *((unsigned int *)col->data[col->lSize]) = *((unsigned int *) value);
+            break;
+        }
+
+        case INT:
+        {
+            // Allocation for int values
+            col->data[col->lSize] = malloc(sizeof(signed int));
+            if (col->data[col->lSize] == NULL)
+                return insertion;
+            // Copy the int value into allocated memory
+            *((signed int *) col->data[col->lSize]) = *((signed int *) value);
+            break;
+        }
+
+        case CHAR:
+        {
+            // Allocation for character values
+            col->data[col->lSize] = malloc(sizeof(char));
+            if (col->data[col->lSize] == NULL)
+                return insertion;
+            // Copy the character value into allocated memory
+            *((char *) col->data[col->lSize]) = *((char *) value);
             break;
         }
 
         case FLOAT:
         {
-            // Allocate memory for the new float value
+            // Allocation for float values
             col->data[col->lSize] = malloc(sizeof(float));
             if (col->data[col->lSize] == NULL)
                 return insertion;
-            // Copy the float value into the allocated memory
+            // Copy the float value into allocated memory
             *((float *) col->data[col->lSize]) = *((float *) value);
             break;
         }
 
         case DOUBLE:
         {
-            // Allocate memory for the new double value
+            // Allocation for double values
             col->data[col->lSize] = malloc(sizeof(double));
             if (col->data[col->lSize] == NULL)
                 return insertion;
-            // Copy the double value into the allocated memory
+            // Copy the double value into allocated memory
             *((double *) col->data[col->lSize]) = *((double *) value);
             break;
         }
 
-        case LONG:
+        case STRING:
         {
-            // Allocate memory for the new long value
-            col->data[col->lSize] = malloc(sizeof(long));
+            // Allocation for string values
+            col->data[col->lSize] = malloc((STR_LENGTH + 1) * sizeof(char));
             if (col->data[col->lSize] == NULL)
                 return insertion;
-            // Copy the long value into the allocated memory
-            *((long *) col->data[col->lSize]) = *((long *) value);
+            // Copy the string value into allocated memory
+            // strncpy instead of strcpy to prevent buffer with more characters than allowed by STR_LENGTH
+            strncpy((char *)col->data[col->lSize], (char *) value, STR_LENGTH);
+            ((char *)col->data[col->lSize])[STR_LENGTH] = '\0';
             break;
         }
 
-        case CHAR:
+        case STRUCTURE:
         {
-            // Allocate memory for the new character value
-            col->data[col->lSize] = malloc(sizeof(char));
-            if (col->data[col->lSize] == NULL)
-                return insertion;
-            // Copy the character value into the allocated memory
-            *((char *) col->data[col->lSize]) = *((char *) value);
-            break;
+            // Allocation for structured type values
+            ... // idk how to do it :(
+
         }
+
 
         default:
             return insertion;
