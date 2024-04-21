@@ -10,13 +10,15 @@
  * @param2: The title of the column
  * @return: A pointer to the new column
  */
-COLUMN* create_column(ENUM_TYPE type, char* title)
+COLUMN* col_create(ENUM_TYPE type, char* title)
 {
     COLUMN* newCol = (COLUMN*)malloc(sizeof(COLUMN));
     newCol->pSize = 0;
     newCol->lSize = 0;
     newCol->type = type;
     newCol->data = NULL;
+    newCol->validIndex = 0;
+    newCol->sortDir = 0;
     return newCol;
 }
 
@@ -26,7 +28,7 @@ COLUMN* create_column(ENUM_TYPE type, char* title)
 * @param2: Pointer to the value to insert
 * @return: 1 if the value is correctly inserted 0 otherwise
 */
-int insert_value(COLUMN *col, void *value)
+int col_insert_value(COLUMN *col, void *value)
 {
     // Check the pointers
     if (col == NULL) return 0;
@@ -129,7 +131,7 @@ int insert_value(COLUMN *col, void *value)
 * @brief: Frees the space allocated to a column
 * @param1: Pointer to the column
 */
-void delete_column(COLUMN **col)
+void col_delete(COLUMN **col)
 {
     // Case where there is nothing to delete
     if (col == NULL || *col == NULL) return;
@@ -188,7 +190,7 @@ void convert_value(COLUMN* column, unsigned int index, char* str, int size)
     }
 }
 
-void print_col(COLUMN* col)
+void col_print(COLUMN* col)
 {
     if (col->lSize == 0) {
         printf("Column is empty!\n");
