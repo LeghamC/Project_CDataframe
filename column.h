@@ -30,7 +30,8 @@ typedef struct{
 COLUMN* create_column(ENUM_TYPE type, char* title);
 int insert_value(COLUMN *col, void *value);
 void delete_column(COLUMN **col);
-
+void convert_value(COLUMN* col, unsigned int index, char* str, int size);
+void print_col(COLUMN *col);
 
 
 typedef struct{

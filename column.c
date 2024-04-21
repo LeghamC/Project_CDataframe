@@ -116,7 +116,6 @@ int insert_value(COLUMN *col, void *value)
             break;
         }
 
-
         default:
             return 0;
     }
@@ -157,31 +156,48 @@ void delete_column(COLUMN **col)
  * @param3 String in which the value will be written
  * @param4 Maximum size of the string
  */
-void convert_value(COLUMN* column, unsigned long long index, char* str, int size)
+void convert_value(COLUMN* column, unsigned int index, char* str, int size)
 {
     char result[size];
 
     switch (column->type) {
-        case INT:
-            snprintf(result, size, "%d", *((int*)column->data[size]));
-            break;
         case UINT:
-            snprintf(result, size, "%ud", *((int*)column->data[size]));
+            snprintf(str, size, "%u", *((unsigned int*)(column->data)[index]));
             break;
         case INT:
-            snprintf(result, size, "%d", *((int*)column->data[size]));
+            snprintf(str, size, "%d", *((int*)(column->data)[index]));
             break;
-        case INT:
-            snprintf(result, size, "%d", *((int*)column->data[size]));
+        case CHAR:
+            snprintf(str, size, "%c", *((char*)(column->data)[index]));
             break;
-        case INT:
-            snprintf(result, size, "%d", *((int*)column->data[size]));
+        case FLOAT:
+            snprintf(str, size, "%f", *((float*)(column->data)[index]));
             break;
-        case INT:
-            snprintf(result, size, "%d", *((int*)column->data[size]));
+        case DOUBLE:
+            snprintf(str, size, "%lf", *((double*)(column->data)[index]));
             break;
-        case INT:
-            snprintf(result, size, "%d", *((int*)column->data[size]));
+        case STRING:
+            strncpy(str, (char*)(column->data)[index], size);
             break;
+        case STRUCTURE:
+            snprintf(str, size, "%d", *((int*)(column->data)[index]));
+            break;
+        case NULLVAL:
+            str = "NULL";
+            break;
+    }
+}
+
+void print_col(COLUMN* col)
+{
+    if (col->lSize == 0) {
+        printf("Column is empty!\n");
+        return;
+    }
+
+    char* valueString = calloc(STR_LENGTH + 1, sizeof(char));
+    for (unsigned int i = 0; i < col->lSize; i ++) {
+        convert_value(col, i, valueString, STR_LENGTH);
+        printf("[%u] %s\n", i, valueString);
     }
 }
