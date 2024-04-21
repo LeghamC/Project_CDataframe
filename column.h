@@ -2,7 +2,7 @@
 #define STRUCTURES_H
 
 #define REALLOC_SIZE 256
-#define STR_LENGTH 50
+#define STR_LENGTH 50   // + 1 for the '\0' character.
 
 typedef enum{
     NULLVAL = 1 , UINT, INT, CHAR, FLOAT, DOUBLE, STRING, STRUCTURE
@@ -20,25 +20,15 @@ typedef struct{
 
 typedef struct{
     char* title;
-    unsigned int pSize; // Physical size.
-    unsigned int lSize; // Logical size.
     ENUM_TYPE type;     // Type of the values contained in the column.
     COLUMN_TYPE **data;  // Array of pointers to stored data.
+    unsigned int pSize; // Physical size.
+    unsigned int lSize; // Logical size.
     unsigned long long *index;  // Array of integers ???
 }COLUMN;
 
-/**
-* @brief: Insert a new value into a column
-* @param1: Pointer to the column
-* @param2: Pointer to the value to insert
-* @return: 1 if the value is correctly inserted 0 otherwise
-*/
+COLUMN* create_column(ENUM_TYPE type, char* title);
 int insert_value(COLUMN *col, void *value);
-
-/**
-* @brief: Free the space allocated by a column
-* @param1: Pointer to the column
-*/
 void delete_column(COLUMN **col);
 
 
