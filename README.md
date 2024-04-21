@@ -7,4 +7,5 @@ For this CDataFrame project, we aim to develop a framework akin to a spreadsheet
 
 Furthermore, our CDataFrame will be designed to handle various data types beyond just integers, therefore including floats, strings, and even structured types that will add versatility, enabling the manipulation of diverse datasets.
 
-Lastly, our CDataFrame will operate as a double-linked list rather than a simple array of columns, enhancing its resemblance to a genuine spreadsheet program.
+Lastly, our CDataFrame will operate as a double-linked list rather than a simple array of columns, enhancing its resemblance to a genuine spreadsheet program whilst
+allowing for a more efficient control of the computer's memory.
