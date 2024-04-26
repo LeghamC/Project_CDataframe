@@ -55,8 +55,8 @@ build CMakeFiles/CDataFrame.dir/main.c.obj: C_COMPILER__CDataFrame_unscanned_Deb
   OBJECT_DIR = CMakeFiles\CDataFrame.dir
   OBJECT_FILE_DIR = CMakeFiles\CDataFrame.dir
 
-build CMakeFiles/CDataFrame.dir/structures.c.obj: C_COMPILER__CDataFrame_unscanned_Debug C$:/Users/leand/Bureau/CDataFrame/structures.c || cmake_object_order_depends_target_CDataFrame
-  DEP_FILE = CMakeFiles\CDataFrame.dir\structures.c.obj.d
+build CMakeFiles/CDataFrame.dir/column.c.obj: C_COMPILER__CDataFrame_unscanned_Debug C$:/Users/leand/Bureau/CDataFrame/column.c || cmake_object_order_depends_target_CDataFrame
+  DEP_FILE = CMakeFiles\CDataFrame.dir\column.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\CDataFrame.dir
   OBJECT_FILE_DIR = CMakeFiles\CDataFrame.dir
@@ -69,7 +69,7 @@ build CMakeFiles/CDataFrame.dir/structures.c.obj: C_COMPILER__CDataFrame_unscann
 #############################################
 # Link the executable CDataFrame.exe
 
-build CDataFrame.exe: C_EXECUTABLE_LINKER__CDataFrame_Debug CMakeFiles/CDataFrame.dir/main.c.obj CMakeFiles/CDataFrame.dir/structures.c.obj
+build CDataFrame.exe: C_EXECUTABLE_LINKER__CDataFrame_Debug CMakeFiles/CDataFrame.dir/main.c.obj CMakeFiles/CDataFrame.dir/column.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CDataFrame.dir
