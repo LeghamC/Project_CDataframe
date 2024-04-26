@@ -9,4 +9,6 @@ add_executable(CDataFrame
         column.h
         cdataframe.h
         cdataframe.h
-        list.h)
+        list.h
+        cdataframe.c
+        list.c)

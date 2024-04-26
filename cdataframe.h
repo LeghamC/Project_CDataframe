@@ -2,6 +2,7 @@
 #define CDATAFRAME_H
 
 #include "list.h"
+#include "column.h"
 typedef LIST CDATAFRAME;
 
 CDATAFRAME* cdf_create(ENUM_TYPE *cdftype, int size);
@@ -24,8 +25,9 @@ int cdf_get_number_of_values_equal(CDATAFRAME* cdf, void* value);
 int cdf_get_number_of_values_greater(CDATAFRAME* cdf, void* value);
 int cdf_get_number_of_values_smaller(CDATAFRAME* cdf, void* value);
 int cdf_get_value(CDATAFRAME* cdf, int row, int column);
+COLUMN* cdf_get_column(CDATAFRAME* cdf, int column);
 int cdf_replace_value(CDATAFRAME* cdf, int row, int columns, void* newValue);
 void cdf_display_column_names(CDATAFRAME* cdf);
-void cdf_load_csv(char* fileName, )
+void cdf_load_csv(char* fileName);
 
 #endif

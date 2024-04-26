@@ -6,9 +6,16 @@
 
 int main()
 {
+    ENUM_TYPE cdftype[] = {STRING, STRING, FLOAT, INT};
+    CDATAFRAME* class = cdf_create(cdftype, 40);
+    cdf_rows_count(class);
+
+    return 0;
+}
     /* In this example, we create a "class" CDATAFRAME containing, for each student, its first and last name, its average
      * and its last value. Only 5 test students are implemented here (the rest will be done once we can load a CSV file). */
 
+    /*
     // Create the "class" CDATAFRAME.
     ENUM_TYPE cdftype[] = {STRING, STRING, FLOAT, INT};
     CDATAFRAME* class = cdf_create(cdftype, 40);
@@ -67,6 +74,4 @@ int main()
 
     // Displaying the content of "class".
     cdf_print(class);
-
-    return 0;
-}
+     */
