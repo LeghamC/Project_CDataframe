@@ -11,4 +11,6 @@ add_executable(CDataFrame
         cdataframe.h
         list.h
         cdataframe.c
-        list.c)
+        list.c
+        matrix.h
+        matrix.c)

@@ -73,6 +73,12 @@ build CMakeFiles/CDataFrame.dir/list.c.obj: C_COMPILER__CDataFrame_unscanned_Deb
   OBJECT_DIR = CMakeFiles\CDataFrame.dir
   OBJECT_FILE_DIR = CMakeFiles\CDataFrame.dir
 
+build CMakeFiles/CDataFrame.dir/matrix.c.obj: C_COMPILER__CDataFrame_unscanned_Debug C$:/Users/leand/Bureau/CDataFrame/matrix.c || cmake_object_order_depends_target_CDataFrame
+  DEP_FILE = CMakeFiles\CDataFrame.dir\matrix.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\CDataFrame.dir
+  OBJECT_FILE_DIR = CMakeFiles\CDataFrame.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CDataFrame
@@ -81,7 +87,7 @@ build CMakeFiles/CDataFrame.dir/list.c.obj: C_COMPILER__CDataFrame_unscanned_Deb
 #############################################
 # Link the executable CDataFrame.exe
 
-build CDataFrame.exe: C_EXECUTABLE_LINKER__CDataFrame_Debug CMakeFiles/CDataFrame.dir/main.c.obj CMakeFiles/CDataFrame.dir/column.c.obj CMakeFiles/CDataFrame.dir/cdataframe.c.obj CMakeFiles/CDataFrame.dir/list.c.obj
+build CDataFrame.exe: C_EXECUTABLE_LINKER__CDataFrame_Debug CMakeFiles/CDataFrame.dir/main.c.obj CMakeFiles/CDataFrame.dir/column.c.obj CMakeFiles/CDataFrame.dir/cdataframe.c.obj CMakeFiles/CDataFrame.dir/list.c.obj CMakeFiles/CDataFrame.dir/matrix.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CDataFrame.dir
