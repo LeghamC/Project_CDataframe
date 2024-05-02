@@ -34,12 +34,13 @@ typedef struct{
 COLUMN* col_create(ENUM_TYPE type, char* title);
 int col_insert_value(COLUMN *col, void *value);
 void col_delete(COLUMN **col);
-void convert_value(COLUMN* col, unsigned int index, char* str, int size);
+void col_convert_value(COLUMN* col, unsigned int index, char* str, int size);
 void col_print(COLUMN *col);
+int col_occurrences(COLUMN* col, void* value);
 void* col_get_value_at(COLUMN* col, int index);
-int col_get_number_of_values_equal(COLUMN* col, void* value);
 int col_get_number_of_values_greater(COLUMN* col, void* value);
 int col_get_number_of_values_smaller(COLUMN* col, void* value);
+int col_get_number_of_values_equal(COLUMN* col, void* value);
 void col_sort(COLUMN* col, int sortOrder);
 void col_delete_index(COLUMN* col);
 int col_check_index(COLUMN* col);
