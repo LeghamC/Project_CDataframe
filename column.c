@@ -158,7 +158,7 @@ void col_delete(COLUMN **col)
  * @param3 String in which the value will be written
  * @param4 Maximum size of the string
  */
-void convert_value(COLUMN* column, unsigned int index, char* str, int size)
+void col_convert_value(COLUMN* column, unsigned int index, char* str, int size)
 {
     char result[size];
 
@@ -190,6 +190,11 @@ void convert_value(COLUMN* column, unsigned int index, char* str, int size)
     }
 }
 
+
+/**
+* @brief: Display the content of a column
+* @param: A Pointer to the column to display
+*/
 void col_print(COLUMN* col)
 {
     if (col->lSize == 0) {
@@ -199,7 +204,72 @@ void col_print(COLUMN* col)
 
     char* valueString = calloc(STR_LENGTH + 1, sizeof(char));
     for (unsigned int i = 0; i < col->lSize; i ++) {
-        convert_value(col, i, valueString, STR_LENGTH);
+        col_convert_value(col, i, valueString, STR_LENGTH);
         printf("[%u] %s\n", i, valueString);
     }
 }
+
+#if 1
+/**
+* @brief: Display the number of occurrences of a given value
+* @param1 A pointer to the column
+* @param2 A pointer to the value for which we want the number of occurrences
+*/
+int col_occurrences(COLUMN* col, void* value);
+{
+    int occurrence = 0;
+    for (int i = 0; i != (col->lSize); i++){
+        if(col->data[i] == (value *))
+            occurrence++;
+
+}
+
+
+
+return 0;
+}
+
+
+/**
+* @brief: Display the value of a given index in the column
+* @param1 A pointer to the column
+* @param2 the index of the value we are looking for
+*/
+void* col_get_value_at(COLUMN* col, int index)
+{
+    ...
+}
+
+
+/**
+* @brief: Display the number of values greater than the one given in parameter
+* @param1 A pointer to the column
+* @param2 the value for which we want the number of values that are greater
+*/
+int col_get_number_of_values_greater(COLUMN* col, void* value);
+{
+...
+}
+
+
+/**
+* @brief: Display the number of values smaller than the one given in parameter
+* @param1 A pointer to the column
+* @param2 the value for which we want the number of values that are smaller
+*/
+int col_get_number_of_values_smaller(COLUMN* col, void* value);
+{
+...
+}
+
+/**
+* @brief: Display the number of values equal to the one given in parameter
+* @param1 A pointer to the column
+* @param2 the value for which we want the number of values that are equal to it
+*/
+int col_get_number_of_values_equal(COLUMN* col, void* value);
+{
+}
+*/
+
+#endif
