@@ -1,13 +1,15 @@
 #ifndef COLUMN_H
 #define COLUMN_H
 
+#include "vector.h"
+
 #define REALLOC_SIZE 256
 #define STR_LENGTH 50   // + 1 for the '\0' character.
 #define ASCENDING 1
 #define DESCENDING 0
 
 typedef enum{
-    NULLVAL = 1 , UINT, INT, CHAR, FLOAT, DOUBLE, STRING, STRUCTURE
+    NULLVAL = 1 , UINT, INT, CHAR, FLOAT, DOUBLE, STRING, VEC
 }ENUM_TYPE;
 
 typedef struct{
@@ -17,7 +19,7 @@ typedef struct{
     float float_value;
     double double_value;
     char* string_value;
-    void* struct_value;
+    VECTOR* vector_value;
 }COLUMN_TYPE;
 
 typedef struct{

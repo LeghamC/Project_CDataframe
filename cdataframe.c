@@ -4,6 +4,8 @@
 #include "cdataframe.h"
 #include "column.h"
 
+
+#if 0
 CDATAFRAME* cdf_create(ENUM_TYPE *cdftype, int size)
 {
     CDATAFRAME* newCdf = (CDATAFRAME*)malloc(sizeof(CDATAFRAME));
@@ -28,3 +30,4 @@ int cdf_rows_count(CDATAFRAME* cdf)
     if (cdf->first == NULL || cdf->first->data->data == NULL) return 0;
     return 1;
 }
+#endif
