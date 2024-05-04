@@ -211,65 +211,324 @@ void col_print(COLUMN* col)
 }
 
 /**
-* @brief: Display the number of occurrences of a given value
+* @brief: Return the number of occurrences of a given value
 * @param1 A pointer to the column
 * @param2 A pointer to the value for which we want the number of occurrences
+* @return The number of occurrences
 */
 int col_occurrences(COLUMN* col, void* value)
 {
     int occurrence = 0;
-    for (int i = 0; i != (col->lSize); i++){
-        if(col->data[i] == (value *))
-            occurrence++;
 
-}
+    // occurrence of value based on column's type
+    switch (col->type) {
+        case UINT:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (*(unsigned int *) col->data[i] == *(unsigned int *) value)
+                    occurrence++;
+            }
+            break;
 
+        case INT:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (*(int *) col->data[i] == *(int *) value)
+                    occurrence++;
+            }
+            break;
 
+        case CHAR:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (*(char *) col->data[i] == *(char *) value)
+                    occurrence++;
+            }
+            break;
 
-return 0;
+        case FLOAT:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (*(float *) col->data[i] == *(float *) value)
+                    occurrence++;
+            }
+            break;
+
+        case DOUBLE:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (*(double *) col->data[i] == *(double *) value)
+                    occurrence++;
+            }
+            break;
+
+        case STRING:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (strcmp((char *) col->data[i], (char *) value) == 0)
+                    occurrence++;
+            }
+            break;
+
+        case STRUCTURE:
+            for (int i = 0; i != col->lSize; i++) {
+                if (col->data[i] == value)
+                    occurrence++;
+            }
+            break;
+
+        default:
+            // unrecognized column type
+            return 0;
+    }
+
+    return occurrence;
 }
 
 
 /**
-* @brief: Display the value of a given index in the column
+* @brief: Return the value present at a given index in the column
 * @param1 A pointer to the column
 * @param2 the index of the value we are looking for
+* @return A pointer to the value at the given index. Or NULL if the index is out of range
 */
 void* col_get_value_at(COLUMN* col, int index)
 {
-    ...
+    // test for index not out of range
+    if ((index >= 0) && (index < col->lSize))
+        return col->data[index];
+    else
+        return NULL;
 }
 
 
 /**
-* @brief: Display the number of values greater than the one given in parameter
+* @brief: Return the number of values greater than the one given in parameter
 * @param1 A pointer to the column
 * @param2 the value for which we want the number of values that are greater
+* @return The number of values greater than the given value
 */
-int col_get_number_of_values_greater(COLUMN* col, void* value);
+int col_get_number_of_values_greater(COLUMN* col, void* value)
 {
-...
+    int num_val_g = 0;
+
+    switch (col->type)
+    {
+        case UINT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(unsigned int *)col->data[i]) > (*(unsigned int *)value))
+                    num_val_g++;
+            }
+            break;
+
+        case INT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(int *)col->data[i]) > (*(int *)value))
+                    num_val_g++;
+            }
+            break;
+
+        // greater in alphabetical order
+        case CHAR:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(char *)col->data[i]) > (*(char *)value))
+                    num_val_g++;
+            }
+            break;
+
+        case FLOAT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(float *)col->data[i]) > (*(float *)value))
+                    num_val_g++;
+            }
+            break;
+
+        case DOUBLE:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(double *)col->data[i]) > (*(double *)value))
+                    num_val_g++;
+            }
+            break;
+
+        // greater in alphabetical order
+        case STRING:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if (strcmp((char *)col->data[i], (char *)value) > 0)
+                    num_val_g++;
+            }
+            break;
+
+        case STRUCTURE:
+            for (int i = 0; i != (col->lSize); i++)
+            {
+                if (col->data[i] > value)
+                    num_val_g++;
+            }
+            break;
+
+        default:
+            // unrecognized column type
+            return 0;
+    }
+
+    return num_val_g;
 }
 
 
 /**
-* @brief: Display the number of values smaller than the one given in parameter
+* @brief: Return the number of values smaller than the one given in parameter
 * @param1 A pointer to the column
 * @param2 the value for which we want the number of values that are smaller
+* @return The number of values smaller than the given value
 */
-int col_get_number_of_values_smaller(COLUMN* col, void* value);
+int col_get_number_of_values_smaller(COLUMN* col, void* value)
 {
-...
+    int num_val_s = 0;
+
+    switch (col->type)
+    {
+        case UINT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(unsigned int *)col->data[i]) < (*(unsigned int *)value))
+                    num_val_s++;
+            }
+            break;
+
+        case INT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(int *)col->data[i]) < (*(int *)value))
+                    num_val_s++;
+            }
+            break;
+
+        // smaller in alphabetical order
+        case CHAR:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(char *)col->data[i]) < (*(char *)value))
+                    num_val_s++;
+            }
+            break;
+
+        case FLOAT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(float *)col->data[i]) < (*(float *)value))
+                    num_val_s++;
+            }
+            break;
+
+        case DOUBLE:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(double *)col->data[i]) < (*(double *)value))
+                    num_val_s++;
+            }
+            break;
+
+        // smaller in alphabetical order
+        case STRING:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if (strcmp((char *)col->data[i], (char *)value) < 0)
+                    num_val_s++;
+            }
+            break;
+
+        case STRUCTURE:
+            for (int i = 0; i != (col->lSize); i++)
+            {
+                if (col->data[i] < value)
+                    num_val_s++;
+            }
+            break;
+
+        default:
+            // unrecognized column type
+            return 0;
+    }
+
+    return num_val_s;
 }
 
 /**
-* @brief: Display the number of values equal to the one given in parameter
+* @brief: Return the number of values equal to the one given in parameter
 * @param1 A pointer to the column
 * @param2 the value for which we want the number of values that are equal to it
+* @return The number of values equal to the given value
 */
-int col_get_number_of_values_equal(COLUMN* col, void* value);
+int col_get_number_of_values_equal(COLUMN* col, void* value)
 {
+    int num_val_e = 0;
+
+    switch (col->type)
+    {
+        case UINT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(unsigned int *)col->data[i]) == (*(unsigned int *)value))
+                    num_val_e++;
+            }
+            break;
+
+        case INT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(int *)col->data[i]) == (*(int *)value))
+                    num_val_e++;
+            }
+            break;
+
+            // smaller in alphabetical order
+        case CHAR:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(char *)col->data[i]) == (*(char *)value))
+                    num_val_e++;
+            }
+            break;
+
+        case FLOAT:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(float *)col->data[i]) == (*(float *)value))
+                    num_val_e++;
+            }
+            break;
+
+        case DOUBLE:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if ((*(double *)col->data[i]) == (*(double *)value))
+                    num_val_e++;
+            }
+            break;
+
+            // smaller in alphabetical order
+        case STRING:
+            for(int i = 0; i != (col->lSize); i++)
+            {
+                if (strcmp((char *)col->data[i], (char *)value) == 0)
+                    num_val_e++;
+            }
+            break;
+
+        case STRUCTURE:
+            for (int i = 0; i != (col->lSize); i++)
+            {
+                if (col->data[i] == value)
+                    num_val_e++;
+            }
+            break;
+
+        default:
+            // unrecognized column type
+            return 0;
+    }
+
+    return num_val_e;
 }
-*/
 
 #endif

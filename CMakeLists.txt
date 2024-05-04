@@ -12,5 +12,14 @@ add_executable(CDataFrame
         list.h
         cdataframe.c
         list.c
-        vector.h
-        vector.c)
+        matrix.h
+        matrix.c
+        sort.h
+        sort.h
+        sort.h
+        sort.h
+        sort.h
+        sort.h
+        sort.c
+        sort.c
+        sort.c)
