@@ -13,6 +13,7 @@
 COLUMN* col_create(ENUM_TYPE type, char* title)
 {
     COLUMN* newCol = (COLUMN*)malloc(sizeof(COLUMN));
+    newCol->title = title;
     newCol->pSize = 0;
     newCol->lSize = 0;
     newCol->type = type;
@@ -107,14 +108,14 @@ int col_insert_value(COLUMN *col, void *value)
             ((char *)(col->data)[col->lSize])[STR_LENGTH] = '\0';
             break;
 
-        case STRUCTURE:
+        case VEC:
         {
             // Allocation for structured type values
-            (col->data)[col->lSize] = malloc(sizeof(value));
+            (col->data)[col->lSize] = malloc(sizeof(VECTOR));
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // We only store a pointer to the object.
-            (col->data)[col->lSize] = value;
+            *((VECTOR *)(col->data)[col->lSize]) = *((VECTOR *) value);
             break;
         }
 
@@ -209,7 +210,6 @@ void col_print(COLUMN* col)
     }
 }
 
-#if 1
 /**
 * @brief: Return the number of occurrences of a given value
 * @param1 A pointer to the column

@@ -3,17 +3,16 @@
 #include "column.h"
 #include "list.h"
 #include "cdataframe.h"
-#include "matrix.h"
+#include "vector.h"
 
 int main()
 {
     /* In this example, we create a "class" CDATAFRAME containing, for each student, its first and last name, its average
      * and its last value. Only 5 test students are implemented here (the rest will be done once we can load a CSV file). */
 
-    float coeff[3][3] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    MATRIX* mat = mat_create(3, 3, coeff);
-    mat_print(mat);
-    printf("%f", mat_determinant(mat));
+    VECTOR* v1 = vec_create(1, 2, 3);
+    vec_print(v1);
+    return 0;
 
 #if 0
     // Create the "class" CDATAFRAME.
@@ -76,5 +75,5 @@ int main()
     cdf_print(class);
 
      return 0;
-}
 #endif
+}
