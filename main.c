@@ -14,7 +14,7 @@ int main()
     vec_print(v1);
     return 0;
 
-#if 0
+#if 1
     // Create the "class" CDATAFRAME.
     ENUM_TYPE cdftype[] = {STRING, STRING, FLOAT, INT};
     CDATAFRAME* class = cdf_create(cdftype, 40);

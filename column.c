@@ -110,11 +110,11 @@ int col_insert_value(COLUMN *col, void *value)
 
         case VEC:
         {
-            // Allocation for structured type values
+            // Allocation for vector type values
             (col->data)[col->lSize] = malloc(sizeof(VECTOR));
             if ((col->data)[col->lSize] == NULL) return 0;
 
-            // We only store a pointer to the object.
+            // Copy the vector value into allocated memory
             *((VECTOR *)(col->data)[col->lSize]) = *((VECTOR *) value);
             break;
         }
@@ -182,8 +182,8 @@ void col_convert_value(COLUMN* column, unsigned int index, char* str, int size)
         case STRING:
             strncpy(str, (char*)(column->data)[index], size);
             break;
-        case STRUCTURE:
-            snprintf(str, size, "%d", *((int*)(column->data)[index]));
+        case VEC:
+            snprintf(str, size, "%f", *((VECTOR*)(column->data)[index]));
             break;
         case NULLVAL:
             str = "NULL";
@@ -264,9 +264,9 @@ int col_occurrences(COLUMN* col, void* value)
             }
             break;
 
-        case STRUCTURE:
-            for (int i = 0; i != col->lSize; i++) {
-                if (col->data[i] == value)
+        case VEC:
+            for (int i = 0; i != (col->lSize); i++) {
+                if (*(VECTOR *) col->data[i] == *(VECTOR *) value)
                     occurrence++;
             }
             break;

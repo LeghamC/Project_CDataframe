@@ -22,4 +22,10 @@ add_executable(CDataFrame
         sort.h
         sort.c
         sort.c
-        sort.c)
+        sort.c
+        column.c
+        column.c
+        column.c
+        cdataframe.c
+        cdataframe.c
+        cdataframe.c)
