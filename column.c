@@ -10,6 +10,9 @@
  * @param2: The title of the column
  * @return: A pointer to the new column
  */
+
+#if 1
+
 COLUMN* col_create(ENUM_TYPE type, char* title)
 {
     COLUMN* newCol = (COLUMN*)malloc(sizeof(COLUMN));
@@ -199,7 +202,7 @@ void col_convert_value(COLUMN* column, unsigned int index, char* str, int size)
 void col_print(COLUMN* col)
 {
     if (col->lSize == 0) {
-        printf("Column is empty!\n");
+        printf("The column is empty\n");
         return;
     }
 
@@ -266,7 +269,7 @@ int col_occurrences(COLUMN* col, void* value)
 
         case VEC:
             for (int i = 0; i != (col->lSize); i++) {
-                if (*(VECTOR *) col->data[i] == *(VECTOR *) value)
+                if (vec_comparison(*(VECTOR *) col->data[i], *(VECTOR *) value))
                     occurrence++;
             }
             break;
@@ -358,10 +361,11 @@ int col_get_number_of_values_greater(COLUMN* col, void* value)
             }
             break;
 
-        case STRUCTURE:
+        // greater in vector's length
+        case VEC:
             for (int i = 0; i != (col->lSize); i++)
             {
-                if (col->data[i] > value)
+                if (vec_magnitude_comparison(*(VECTOR *)col->data[i], *(VECTOR *)value))
                     num_val_g++;
             }
             break;
@@ -437,10 +441,11 @@ int col_get_number_of_values_smaller(COLUMN* col, void* value)
             }
             break;
 
-        case STRUCTURE:
+        // smaller in vector's length
+        case VEC:
             for (int i = 0; i != (col->lSize); i++)
             {
-                if (col->data[i] < value)
+                if (vec_magnitude_comparison(*(VECTOR *)value, *(VECTOR *)col->data[i]))
                     num_val_s++;
             }
             break;
@@ -515,10 +520,10 @@ int col_get_number_of_values_equal(COLUMN* col, void* value)
             }
             break;
 
-        case STRUCTURE:
+        case VEC:
             for (int i = 0; i != (col->lSize); i++)
             {
-                if (col->data[i] == value)
+                if (vec_comparison(*(VECTOR *) col->data[i], *(VECTOR *) value))
                     num_val_e++;
             }
             break;

@@ -43,7 +43,7 @@ void* col_get_value_at(COLUMN* col, int index);
 int col_get_number_of_values_greater(COLUMN* col, void* value);
 int col_get_number_of_values_smaller(COLUMN* col, void* value);
 int col_get_number_of_values_equal(COLUMN* col, void* value);
-void col_sort(COLUMN* col, int sortOrder);
+void col_sort(COLUMN* col, int sort_dir);
 void col_delete_index(COLUMN* col);
 int col_check_index(COLUMN* col);
 void col_update_index(COLUMN* col);

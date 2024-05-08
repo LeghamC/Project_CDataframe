@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
+#include <math.h>
 
 VECTOR* vec_create(float x, float y, float z)
 {
@@ -79,3 +80,23 @@ VECTOR* vec_cross_product(VECTOR* v1, VECTOR* v2)
     float z = v1->x * v2->y - v1->y * v2->x;
     return vec_create(x, y, z);
 }
+
+
+int vec_comparison(VECTOR v1, VECTOR v2)
+{
+    if ( (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z) )
+        return 1;
+    else
+        return 0;
+}
+
+int vec_magnitude_comparison(VECTOR v1, VECTOR v2)
+{
+     int v1_magnitude = sqrt(v1.x * v1.x + v1.y * v1.y + v1.z * v1.z);
+     int v2_magnitude = sqrt(v2.x * v2.x + v2.y * v2.y + v2.z * v2.z);
+
+     if (v1_magnitude > v2_magnitude)
+         return 1;
+     return 0;
+}
+
