@@ -73,8 +73,7 @@ int partition(COLUMN* col, int low, int high)
 
 void quick_sort(COLUMN* col, int low, int high)
 {
-    if (low < high)
-    {
+    if (low < high) {
         // pi is the partition return index of pivot
         int pi = partition(col, low, high);
 

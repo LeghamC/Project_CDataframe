@@ -11,6 +11,7 @@ void insertion_sort(COLUMN* col, int sort_dir);
 void swap(void** p1, void** p2);
 int partition(COLUMN* col, int low, int high);
 void quick_sort(COLUMN* col, int low, int high);
+
 void sort(COLUMN* col, int sort_dir);
 
 
