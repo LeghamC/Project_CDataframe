@@ -167,6 +167,7 @@ void col_convert_value(COLUMN* column, unsigned int index, char* str, int size)
     char result[size];
 
     switch (column->type) {
+        // use of snprintf to limit the length of the string to a specified one and in a specified type
         case UINT:
             snprintf(str, size, "%u", *((unsigned int*)(column->data)[index]));
             break;
