@@ -1,9 +1,8 @@
 # ninja log v5
 3	355	7364391752722325	CMakeFiles/CDataFrame.dir/main.c.obj	56031d99a5e865cf
-1	514	7365162638390296	build.ninja	ea41e0dcf189610e
+1	514	7373075601638897	build.ninja	ea41e0dcf189610e
 3	334	7364280356134261	CMakeFiles/CDataFrame.dir/cdataframe.c.obj	479149036869a785
 55	400	7364280017883997	CMakeFiles/CDataFrame.dir/column.c.obj	41461a16b3d051bc
 415	807	7364391757052464	CDataFrame.exe	362413c47f404ff0
 139	461	7358327895834817	CMakeFiles/CDataFrame.dir/list.c.obj	d646c046039e7074
-2	249	7364355744921409	CMakeFiles/CDataFrame.dir/matrix.c.obj	dc612fd3cc69af9d
 69	415	7364391753348511	CMakeFiles/CDataFrame.dir/vector.c.obj	237bb1ad18491390
