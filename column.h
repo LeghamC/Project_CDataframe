@@ -4,12 +4,12 @@
 #include "vector.h"
 
 #define REALLOC_SIZE 256
-#define STR_LENGTH 50   // + 1 for the '\0' character.
+#define STR_LENGTH 30   // + 1 for the '\0' character.
 #define ASCENDING 1
 #define DESCENDING 0
 
 typedef enum{
-    NULLVAL = 1 , UINT, INT, CHAR, FLOAT, DOUBLE, STRING, VEC
+    NULLVAL = 1, UINT, INT, CHAR, FLOAT, DOUBLE, STRING, VEC
 }ENUM_TYPE;
 
 typedef struct{
