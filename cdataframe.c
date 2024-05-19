@@ -176,3 +176,52 @@ void cdf_print_columns_between(CDATAFRAME* cdf, int minColumn, int maxColumn)
         }
     }
 }
+
+void cdf_print_cr_between(CDATAFRAME* cdf, int minRow, int maxRow, int minColumn, int maxColumn)
+{
+    unsigned int colCount = cdf_columns_count(cdf);
+
+    // Header.
+    printf("     |");
+    for (int j = minColumn; j < maxColumn; j++) {
+        COLUMN *curCol = cdf_get_column(cdf, j);
+        printf(" %*s%s%*s |", (STR_LENGTH - strlen(curCol->title)) / 2, curCol->title,
+               (STR_LENGTH - strlen(curCol->title)) / 2);
+    }
+    printf("\n");
+
+    // Core.
+    for (int i = minColumn; i < maxColumn; i++) {
+        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        for (int j = minRow; j < maxRow; j++) {
+            char currentBuffer[STR_LENGTH];
+            col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
+            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+        }
+    }
+}
+
+void cdf_add_row(CDATAFRAME* cdf, COLUMN_TYPE* values)
+{
+    for (int i = 0; i < cdf_columns_count(cdf); i ++) {
+        COLUMN* currentCol = cdf_get_column(cdf, i);
+        switch (currentCol->type) {
+            case UINT:;
+                col_insert_value(currentCol, &(values[i].uint_value)); break;
+            case INT:;
+                col_insert_value(currentCol, &(values[i]).int_value); break;
+            case FLOAT:;
+                col_insert_value(currentCol, &(values[i]).float_value); break;
+            case DOUBLE:;
+                col_insert_value(currentCol, &(values[i]).double_value); break;
+            case CHAR:;
+                col_insert_value(currentCol, &(values[i]).char_value); break;
+            case STRING:;
+                col_insert_value(currentCol, &(values[i]).string_value); break;
+            case VEC:;
+                col_insert_value(currentCol, &(values[i]).vector_value); break;
+            default:;
+                break;
+        }
+    }
+}
