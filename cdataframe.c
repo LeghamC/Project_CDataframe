@@ -139,5 +139,40 @@ void cdf_print(CDATAFRAME* cdf) {
 
 void cdf_print_rows_between(CDATAFRAME* cdf, int minRow, int maxRow)
 {
+    unsigned int colCount = cdf_columns_count(cdf);
+    cdf_print_header(cdf);
 
+    // Core.
+    for (int i = minRow; i < maxRow; i++) {
+        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        for (int j = 0; j < colCount; j++) {
+            char currentBuffer[STR_LENGTH];
+            col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
+            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+        }
+    }
+}
+
+void cdf_print_columns_between(CDATAFRAME* cdf, int minColumn, int maxColumn)
+{
+    unsigned int colCount = cdf_columns_count(cdf);
+
+    // Header.
+    printf("     |");
+    for (int j = minColumn; j < maxColumn; j++) {
+        COLUMN *curCol = cdf_get_column(cdf, j);
+        printf(" %*s%s%*s |", (STR_LENGTH - strlen(curCol->title)) / 2, curCol->title,
+               (STR_LENGTH - strlen(curCol->title)) / 2);
+    }
+    printf("\n");
+
+    // Core.
+    for (int i = minColumn; i < maxColumn; i++) {
+        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        for (int j = 0; j < colCount; j++) {
+            char currentBuffer[STR_LENGTH];
+            col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
+            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+        }
+    }
 }

@@ -13,9 +13,9 @@ COLUMN* cdf_get_column(CDATAFRAME* cdf, int column);
 void cdf_fill_with_user_inputs(CDATAFRAME* cdf);
 void cdf_hard_fill(CDATAFRAME* cdf);
 void cdf_print(CDATAFRAME* cdf);
-
 void cdf_print_rows_between(CDATAFRAME* cdf, int minRow, int maxRow);
 void cdf_print_columns_between(CDATAFRAME* cdf, int minColumn, int maxColumn);
+
 void cdf_print_cr_between(CDATAFRAME* cdf, int minRow, int maxRow, int minColumn, int maxColumn);
 int cdf_add_row(CDATAFRAME* cdf);
 int cdf_remove_row(CDATAFRAME* cdf, int index);
