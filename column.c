@@ -320,71 +320,73 @@ void* col_get_value_at(COLUMN* col, int index)
 */
 int col_get_number_of_values_greater(COLUMN* col, void* value)
 {
+    if (col == NULL || value == NULL)
+    {
+        return 0;
+    }
+
     int num_val_g = 0;
 
     switch (col->type)
     {
         case UINT:
-            for(int i = 0; i != (col->lSize); i++)
-            {
-                if ((*(unsigned int *)col->data[i]) > (*(unsigned int *)value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(unsigned int*)col->data[i] > *(unsigned int*)value) {
                     num_val_g++;
+                }
             }
             break;
 
         case INT:
-            for(int i = 0; i != (col->lSize); i++)
-            {
-                if ((*(int *)col->data[i]) > (*(int *)value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(int*)col->data[i] > *(int*)value) {
                     num_val_g++;
+                }
             }
             break;
 
-        // greater in alphabetical order
         case CHAR:
-            for(int i = 0; i != (col->lSize); i++)
-            {
-                if ((*(char *)col->data[i]) > (*(char *)value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(char*)col->data[i] > *(char*)value) {
                     num_val_g++;
+                }
             }
             break;
 
         case FLOAT:
-            for(int i = 0; i != (col->lSize); i++)
-            {
-                if ((*(float *)col->data[i]) > (*(float *)value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(float*)col->data[i] > *(float*)value) {
                     num_val_g++;
+                }
             }
             break;
 
         case DOUBLE:
-            for(int i = 0; i != (col->lSize); i++)
-            {
-                if ((*(double *)col->data[i]) > (*(double *)value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(double*)col->data[i] > *(double*)value) {
                     num_val_g++;
+                }
             }
             break;
 
-        // greater in alphabetical order
         case STRING:
-            for(int i = 0; i != (col->lSize); i++)
-            {
-                if (strcmp((char *)col->data[i], (char *)value) > 0)
+            for (int i = 0; i < col->lSize; i++) {
+                if (strcmp((char*)col->data[i], (char*)value) > 0) {
                     num_val_g++;
+                }
             }
             break;
 
-        // greater in vector's length
         case VEC:
-            for (int i = 0; i != (col->lSize); i++)
-            {
-                if (vec_magnitude_comparison(*(VECTOR *)col->data[i], *(VECTOR *)value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (vec_magnitude_comparison(col->data[i], (VECTOR*)value) > 0) {
                     num_val_g++;
+                }
             }
             break;
 
         default:
-            // unrecognized column type
+            // Unrecognized column type
             return 0;
     }
 
@@ -400,76 +402,81 @@ int col_get_number_of_values_greater(COLUMN* col, void* value)
 */
 int col_get_number_of_values_smaller(COLUMN* col, void* value)
 {
+    if (col == NULL || value == NULL) {
+        return 0;
+    }
+
     int num_val_s = 0;
 
     switch (col->type)
     {
         case UINT:
-            for(int i = 0; i != (col->lSize); i++)
+            for(int i = 0; i < col->lSize; i++)
             {
-                if ((*(unsigned int *)col->data[i]) < (*(unsigned int *)value))
+                if (*(unsigned int*)col->data[i] < *(unsigned int*)value)
                     num_val_s++;
             }
             break;
 
         case INT:
-            for(int i = 0; i != (col->lSize); i++)
+            for(int i = 0; i < col->lSize; i++)
             {
-                if ((*(int *)col->data[i]) < (*(int *)value))
+                if (*(int*)col->data[i] < *(int*)value)
                     num_val_s++;
             }
             break;
 
-        // smaller in alphabetical order
+            // Smaller in ASCII order
         case CHAR:
-            for(int i = 0; i != (col->lSize); i++)
+            for(int i = 0; i < col->lSize; i++)
             {
-                if ((*(char *)col->data[i]) < (*(char *)value))
+                if (*(char*)col->data[i] < *(char*)value)
                     num_val_s++;
             }
             break;
 
         case FLOAT:
-            for(int i = 0; i != (col->lSize); i++)
+            for(int i = 0; i < col->lSize; i++)
             {
-                if ((*(float *)col->data[i]) < (*(float *)value))
+                if (*(float*)col->data[i] < *(float*)value)
                     num_val_s++;
             }
             break;
 
         case DOUBLE:
-            for(int i = 0; i != (col->lSize); i++)
+            for(int i = 0; i < col->lSize; i++)
             {
-                if ((*(double *)col->data[i]) < (*(double *)value))
+                if (*(double*)col->data[i] < *(double*)value)
                     num_val_s++;
             }
             break;
 
-        // smaller in alphabetical order
+            // Smaller in ASCII order
         case STRING:
-            for(int i = 0; i != (col->lSize); i++)
+            for(int i = 0; i < col->lSize; i++)
             {
-                if (strcmp((char *)col->data[i], (char *)value) < 0)
+                if (strcmp((char*)col->data[i], (char*)value) < 0)
                     num_val_s++;
             }
             break;
 
-        // smaller in vector's length
+            // Smaller in vector's length
         case VEC:
-            for (int i = 0; i != (col->lSize); i++)
+            for (int i = 0; i < col->lSize; i++)
             {
-                if (vec_magnitude_comparison(*(VECTOR *)value, *(VECTOR *)col->data[i]))
+                if (vec_magnitude_comparison((VECTOR*)col->data[i], (VECTOR*)value) < 0)
                     num_val_s++;
             }
             break;
 
         default:
-            // unrecognized column type
+            // Unrecognized column type
             return 0;
     }
 
     return num_val_s;
 }
+
 
 /**
 * @brief: Return the number of values equal to the one given in parameter
