@@ -6,12 +6,11 @@
 #define ASC 0
 #define DESC 1
 
-int compare(void* val1, void* val2);
+int compare(COLUMN_TYPE* val1, COLUMN_TYPE* val2, ENUM_TYPE type);
 void insertion_sort(COLUMN* col, int sort_dir);
-void swap(void** p1, void** p2);
+void swap(COLUMN_TYPE** p1, COLUMN_TYPE** p2);
 int partition(COLUMN* col, int low, int high);
-void quick_sort(COLUMN* col, int low, int high);
-
+void quick_sort(COLUMN* col, int low, int high, int sort_dir);
 void sort(COLUMN* col, int sort_dir);
 
 

@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2023.3.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\lelia\CLionProjects\Project_CDataframe\Project_CDataframe\Project_CDataframe-temp
+CMAKE_SOURCE_DIR = C:\Users\lelia\CLionProjects\Project_CDataframe
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\lelia\CLionProjects\Project_CDataframe\Project_CDataframe\Project_CDataframe-temp\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\lelia\CLionProjects\Project_CDataframe\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lelia\CLionProjects\Project_CDataframe\Project_CDataframe\Project_CDataframe-temp\cmake-build-debug\CMakeFiles C:\Users\lelia\CLionProjects\Project_CDataframe\Project_CDataframe\Project_CDataframe-temp\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lelia\CLionProjects\Project_CDataframe\cmake-build-debug\CMakeFiles C:\Users\lelia\CLionProjects\Project_CDataframe\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lelia\CLionProjects\Project_CDataframe\Project_CDataframe\Project_CDataframe-temp\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lelia\CLionProjects\Project_CDataframe\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,30 @@ CDataFrame/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/build
 .PHONY : CDataFrame/fast
 
+cdataframe.obj: cdataframe.c.obj
+.PHONY : cdataframe.obj
+
+# target to build an object file
+cdataframe.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/cdataframe.c.obj
+.PHONY : cdataframe.c.obj
+
+cdataframe.i: cdataframe.c.i
+.PHONY : cdataframe.i
+
+# target to preprocess a source file
+cdataframe.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/cdataframe.c.i
+.PHONY : cdataframe.c.i
+
+cdataframe.s: cdataframe.c.s
+.PHONY : cdataframe.s
+
+# target to generate assembly for a file
+cdataframe.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/cdataframe.c.s
+.PHONY : cdataframe.c.s
+
 column.obj: column.c.obj
 .PHONY : column.obj
 
@@ -151,6 +175,30 @@ column.s: column.c.s
 column.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/column.c.s
 .PHONY : column.c.s
+
+list.obj: list.c.obj
+.PHONY : list.obj
+
+# target to build an object file
+list.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/list.c.obj
+.PHONY : list.c.obj
+
+list.i: list.c.i
+.PHONY : list.i
+
+# target to preprocess a source file
+list.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/list.c.i
+.PHONY : list.c.i
+
+list.s: list.c.s
+.PHONY : list.s
+
+# target to generate assembly for a file
+list.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/list.c.s
+.PHONY : list.c.s
 
 main.obj: main.c.obj
 .PHONY : main.obj
@@ -176,6 +224,54 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/main.c.s
 .PHONY : main.c.s
 
+sort.obj: sort.c.obj
+.PHONY : sort.obj
+
+# target to build an object file
+sort.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/sort.c.obj
+.PHONY : sort.c.obj
+
+sort.i: sort.c.i
+.PHONY : sort.i
+
+# target to preprocess a source file
+sort.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/sort.c.i
+.PHONY : sort.c.i
+
+sort.s: sort.c.s
+.PHONY : sort.s
+
+# target to generate assembly for a file
+sort.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/sort.c.s
+.PHONY : sort.c.s
+
+vector.obj: vector.c.obj
+.PHONY : vector.obj
+
+# target to build an object file
+vector.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/vector.c.obj
+.PHONY : vector.c.obj
+
+vector.i: vector.c.i
+.PHONY : vector.i
+
+# target to preprocess a source file
+vector.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/vector.c.i
+.PHONY : vector.c.i
+
+vector.s: vector.c.s
+.PHONY : vector.s
+
+# target to generate assembly for a file
+vector.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/vector.c.s
+.PHONY : vector.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -185,12 +281,24 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... CDataFrame
+	@echo ... cdataframe.obj
+	@echo ... cdataframe.i
+	@echo ... cdataframe.s
 	@echo ... column.obj
 	@echo ... column.i
 	@echo ... column.s
+	@echo ... list.obj
+	@echo ... list.i
+	@echo ... list.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... sort.obj
+	@echo ... sort.i
+	@echo ... sort.s
+	@echo ... vector.obj
+	@echo ... vector.i
+	@echo ... vector.s
 .PHONY : help
 
 

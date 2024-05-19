@@ -18,8 +18,8 @@ void vec_minus(VECTOR* v);
 VECTOR* vec_add(VECTOR* v1, VECTOR* v2);
 float vec_dot_product(VECTOR* v1, VECTOR* v2);
 VECTOR* vec_cross_product(VECTOR* v1, VECTOR* v2);
-int vec_comparison(VECTOR v1, VECTOR v2);
-int vec_magnitude_comparison(VECTOR v1, VECTOR v2);
+int vec_comparison(VECTOR* v1, VECTOR* v2);
+int vec_magnitude_comparison(VECTOR* v1, VECTOR* v2);
 
 
 #endif

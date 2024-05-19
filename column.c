@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdint.h>
 #include "column.h"
+#include "vector.h"
 
 /**
  * @brief: Creates an empty column with the given title
@@ -215,68 +216,79 @@ void col_print(COLUMN* col)
 }
 
 /**
-* @brief: Return the number of occurrences of a given value
-* @param1 A pointer to the column
-* @param2 A pointer to the value for which we want the number of occurrences
-* @return The number of occurrences
-*/
+ * @brief: Return the number of occurrences of a given value
+ * @param1 A pointer to the column
+ * @param2 A pointer to the value for which we want the number of occurrences
+ * @return The number of occurrences
+ */
 int col_occurrences(COLUMN* col, void* value)
 {
+    if (col == NULL || value == NULL) {
+        return 0;
+    }
+
     int occurrence = 0;
 
-    // occurrence of value based on column's type
+    // Occurrence of value based on column's type
     switch (col->type) {
         case UINT:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (*(unsigned int *) col->data[i] == *(unsigned int *) value)
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(unsigned int*)col->data[i] == *(unsigned int*)value) {
                     occurrence++;
+                }
             }
             break;
 
         case INT:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (*(int *) col->data[i] == *(int *) value)
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(int*)col->data[i] == *(int*)value) {
                     occurrence++;
+                }
             }
             break;
 
         case CHAR:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (*(char *) col->data[i] == *(char *) value)
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(char*)col->data[i] == *(char*)value) {
                     occurrence++;
+                }
             }
             break;
 
         case FLOAT:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (*(float *) col->data[i] == *(float *) value)
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(float*)col->data[i] == *(float*)value) {
                     occurrence++;
+                }
             }
             break;
 
         case DOUBLE:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (*(double *) col->data[i] == *(double *) value)
+            for (int i = 0; i < col->lSize; i++) {
+                if (*(double*)col->data[i] == *(double*)value) {
                     occurrence++;
+                }
             }
             break;
 
         case STRING:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (strcmp((char *) col->data[i], (char *) value) == 0)
+            for (int i = 0; i < col->lSize; i++) {
+                if (strcmp((char*)col->data[i], (char*)value) == 0) {
                     occurrence++;
+                }
             }
             break;
 
         case VEC:
-            for (int i = 0; i != (col->lSize); i++) {
-                if (vec_comparison(*(VECTOR *) col->data[i], *(VECTOR *) value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (vec_comparison((VECTOR*)col->data[i], (VECTOR*)value) == 0) {
                     occurrence++;
+                }
             }
             break;
 
         default:
-            // unrecognized column type
+            // Unrecognized column type
             return 0;
     }
 
@@ -522,10 +534,10 @@ int col_get_number_of_values_equal(COLUMN* col, void* value)
             break;
 
         case VEC:
-            for (int i = 0; i != (col->lSize); i++)
-            {
-                if (vec_comparison(*(VECTOR *) col->data[i], *(VECTOR *) value))
+            for (int i = 0; i < col->lSize; i++) {
+                if (vec_comparison((VECTOR*)col->data[i], (VECTOR*)value) == 0) {
                     num_val_e++;
+                }
             }
             break;
 
