@@ -109,11 +109,12 @@ int col_insert_value(COLUMN *col, void *value)
         case STRING:
             // Allocation for string values
             (col->data)[col->lSize] = malloc(sizeof(COLUMN_TYPE));
+            col->data[col->lSize]->string_value = malloc(STR_LENGTH * sizeof(char));
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the string value into allocated memory
             // strncpy instead of strcpy to prevent buffer with more characters than allowed by STR_LENGTH
-            strncpy((col->data)[col->lSize]->string_value, (char *) value, STR_LENGTH);
+            strncpy((col->data)[col->lSize]->string_value, (char*)value, STR_LENGTH);
             ((char *)(col->data)[col->lSize])[STR_LENGTH] = '\0';
             break;
 
