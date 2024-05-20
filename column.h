@@ -5,12 +5,12 @@
 
 #define REALLOC_SIZE 256
 #define STR_LENGTH 30   // + 1 for the '\0' character.
-#define ASCENDING 1
-#define DESCENDING 0
+#define ASC 1
+#define DESC 0
 
 
 typedef enum{
-    NULLVAL = 1, UINT, INT, CHAR, FLOAT, DOUBLE, STRING, VEC
+    UINT, INT, CHAR, FLOAT, DOUBLE, STRING, VEC
 }ENUM_TYPE;
 
 typedef struct{
@@ -40,7 +40,7 @@ void col_delete(COLUMN **col);
 void col_convert_value(COLUMN* col, unsigned int index, char* str, int size);
 void col_print(COLUMN *col);
 int col_occurrences(COLUMN* col, void* value);
-void* col_get_value_at(COLUMN* col, int index);
+COLUMN_TYPE* col_get_value_at(COLUMN* col, int index);
 int col_get_number_of_values_greater(COLUMN* col, void* value);
 int col_get_number_of_values_smaller(COLUMN* col, void* value);
 int col_get_number_of_values_equal(COLUMN* col, void* value);
@@ -49,5 +49,11 @@ void col_erase_index(COLUMN *col);
 int col_check_index(COLUMN *col);
 void col_update_index(COLUMN* col);
 int col_search_value(COLUMN* col, void* value);
+int col_compare(COLUMN_TYPE* val1, COLUMN_TYPE* val2, ENUM_TYPE type);
+void col_insertion_sort(COLUMN* col, int sort_dir);
+void col_swap(COLUMN_TYPE** p1, COLUMN_TYPE** p2);
+int col_partition(COLUMN* col, int low, int high, int sort_dir);
+void col_quick_sort(COLUMN* col, int low, int high, int sort_dir);
+void col_sort(COLUMN* col, int sort_dir);
 
 #endif

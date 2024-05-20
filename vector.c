@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
-#include <math.h>
 
 VECTOR* vec_create(float x, float y, float z)
 {
