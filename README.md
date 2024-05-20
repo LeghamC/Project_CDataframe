@@ -2,10 +2,22 @@
 L1-S2 C project : CDataframe   
 Link to repository: https://github.com/LeghamC/Project_CDataframe
 
-Project Idea:  
-For this CDataFrame project, we aim to develop a framework akin to a spreadsheet, similar to those found in programs like LibreOffice Calc or MS Excel. Our goal is to empower users to directly organize their data using operations that will be provided by our program.
+Project Idea:
 
-Furthermore, our CDataFrame will be designed to handle various data types beyond just integers, therefore including floats, strings, and even structured types that will add versatility, enabling the manipulation of diverse datasets.
+For this CDataFrame project, we aim to develop a framework similar to a spreadsheet, akin to programs like LibreOffice Calc or MS Excel. 
+Our goal is to empower users to organize their data directly using operations provided by our program.
 
-Lastly, our CDataFrame will operate as a double-linked list rather than a simple array of columns, enhancing its resemblance to a genuine spreadsheet program whilst
-allowing for a more efficient control of the computer's memory.
+To achieve this, our code addresses three main tasks:
+
+First, we worked on the columns to handle various data types, allowing users flexibility in data entry. 
+Our dataframe can handle the following data types: UINT, INT, CHAR, FLOAT, DOUBLE, STRING, and VEC, which is a custom structure type we implemented. 
+In the vector.c file, we implemented numerous functions to manipulate these vectors.
+
+Secondly, to enhance efficiency, we implemented the CDataFrame with a doubly-linked list instead of an array of columns. 
+This change enhances its resemblance to a genuine spreadsheet program. We also added the ability to load data from a .csv file to avoid manual entry of multiple lines of data. 
+Additionally, we enabled the contents of a CDataFrame to be stored in a .csv file.
+
+Finally, we added several advanced functionalities, including useful functions to search for specific values and sort columns in various ways, whether they are unsorted or partially sorted.
+
+To test our CDataFrame, it is very simple. 
+The user only needs to go to the main file and run the program, as we have already included a scenario that demonstrates how our project works and the functionalities we have added.
