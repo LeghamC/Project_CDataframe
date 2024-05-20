@@ -556,4 +556,162 @@ int col_get_number_of_values_equal(COLUMN* col, void* value)
     return num_val_e;
 }
 
+
+/**
+ * @brief: Display the content of the sorted column
+ * @param1: Pointer to column
+ */
+void col_print_by_index(COLUMN *col)
+{
+    if (col == NULL || col->data == NULL || col->index == NULL)
+        return;
+
+    for (int i = 0; i < col->lSize; i++)
+    {
+        int sorted_index = col->index[i];
+
+        switch (col->type)
+        {
+            case UINT:
+                printf("[%d] %u\n", i, col->data[sorted_index]->uint_value);
+                break;
+
+            case INT:
+                printf("[%d] %d\n", i, col->data[sorted_index]->int_value);
+                break;
+
+            case CHAR:
+                printf("[%d] %c\n", i, col->data[sorted_index]->char_value);
+                break;
+
+            case FLOAT:
+                printf("[%d] %.2f\n", i, col->data[sorted_index]->float_value);
+                break;
+
+            case DOUBLE:
+                printf("[%d] %.2lf\n", i, col->data[sorted_index]->double_value);
+                break;
+
+            case STRING:
+                printf("[%d] %s\n", i, col->data[sorted_index]->string_value);
+                break;
+
+            case VEC:
+                printf("[%d] (%.2lf, %.2lf, %.2lf)\n", i,
+                       col->data[sorted_index]->vector_value->x,
+                       col->data[sorted_index]->vector_value->y,
+                       col->data[sorted_index]->vector_value->z);
+                break;
+
+            default:
+                printf("[%d] Unknown type\n", i);
+                break;
+        }
+    }
+}
+
+
+/**
+ * @brief: Remove a column's index
+ * @param1: Pointer to the column
+ */
+void col_erase_index(COLUMN *col)
+{
+    if (col == NULL || col->index == NULL)
+        return;
+
+    // Free the memory allocated to the index array
+    free(col->index);
+
+    // Set index's pointer to NULL
+    col->index = NULL;
+
+    // Update validIndex to 0 (no index)
+    col->validIndex = 0;
+}
+
+
+/**
+ * @brief: Check an index's presence
+ * @param1: Pointer to the column
+ * @return: 0: if index does not exist,
+ *         -1: if index exists but invalid,
+ *          1: if index is correct
+ */
+int col_check_index(COLUMN *col)
+{
+    if (col == NULL)
+        return 0;
+
+    if (col->index == NULL)
+        return 0;
+
+    return col->validIndex;
+}
+
+
+/**
+ * @brief: Update the index
+ * @param1: Pointer to the column
+ */
+void col_update_index(COLUMN *col)
+{
+    if (col->validIndex == 0)
+    {
+        // Apply quick sort if the column is not sorted
+        sort(col, col->sortDir); // col->sortDir to determine the order
+    }
+    else if (col->validIndex == -1)
+    {
+        // Apply insertion sort if the column is partially sorted
+        if (col->sortDir == -1)
+        {
+            insertion_sort(col, DESC);
+            col->validIndex = 1; // Mark the index as valid
+
+        }
+        else
+        {
+            insertion_sort(col, ASC);
+            col->validIndex = 1; // Mark the index as valid
+        }
+    }
+}
+
+
+/**
+* @brief: Check if a value exists in a column
+* @param1: Pointer to the column
+* @param2: Pointer to the value to search for
+* @return: -1: column not sorted,
+*           0: value not found
+*           1: value found
+*/
+int col_search_value(COLUMN *col, void *val)
+{
+    if (col->validIndex != 1)
+        return -1; // Column not sorted
+
+    int low = 0;
+    int high = col->lSize - 1;
+
+    while (low <= high)
+    {
+        int mid = low + (high - low) / 2;
+        int comparison = compare(col->data[mid], val, col->type);
+
+        // Value found
+        if (comparison == 0)
+            return 1;
+
+        if (comparison < 0)
+            low = mid + 1;
+
+        else
+            high = mid - 1;
+    }
+
+    return 0; // Value not found
+}
+
 #endif

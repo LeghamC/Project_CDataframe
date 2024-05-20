@@ -12,6 +12,7 @@
  * @param type type of the values
  * @return -1 if val1 < val2, 1 if val1 > val2, 0 if val1 == val2
  */
+
 int compare(COLUMN_TYPE* val1, COLUMN_TYPE* val2, ENUM_TYPE type)
 {
     switch (type)
@@ -61,10 +62,10 @@ int compare(COLUMN_TYPE* val1, COLUMN_TYPE* val2, ENUM_TYPE type)
 
 
 /**
-* @brief: Sort a column according to a given order
-* @param1: Pointer to the column to sort
-* @param2: Sort type (ASC or DESC)
-*/
+ * @brief: Sort the column using insertion sort algorithm
+ * @param1: Pointer to the column to sort
+ * @param2: Sort type: ASC or DESC
+ */
 void insertion_sort(COLUMN* col, int sort_dir)
 {
     for (int i = 1; i < col->lSize; i++)
@@ -73,8 +74,9 @@ void insertion_sort(COLUMN* col, int sort_dir)
         int j = i - 1;
 
         // Use compare function and sort_dir to decide order
-        while (j >= 0 && ((sort_dir == ASC && compare(col->data[j], k, col->type) > 0) ||
-                          (sort_dir == DESC && compare(col->data[j], k, col->type) < 0))) {
+        while (j >= 0 && ((sort_dir == 1 && compare(col->data[j], k, col->type) > 0) ||
+                          (sort_dir == -1 && compare(col->data[j], k, col->type) < 0)))
+        {
             col->data[j + 1] = col->data[j];
             j--;
         }
@@ -83,20 +85,26 @@ void insertion_sort(COLUMN* col, int sort_dir)
 }
 
 /**
-* @brief: Sort a column according to a given order
-* @param1: Pointer to the column to sort
-* @param2: Sort type (ASC or DESC)
-*/
+ * @brief: Swap two COLUMN_TYPE pointers
+ * @param1: Pointer to the first COLUMN_TYPE pointer
+ * @param2: Pointer to the second COLUMN_TYPE pointer
+ */
 void swap(COLUMN_TYPE** p1, COLUMN_TYPE** p2)
 {
-
     COLUMN_TYPE* temp = *p1;
     *p1 = *p2;
     *p2 = temp;
 }
 
-
-int partition(COLUMN* col, int low, int high)
+/**
+ * @brief: Partition the column for quicksort
+ * @param1: Pointer to the column
+ * @param2: Lower bound index
+ * @param3: Upper bound index
+ * @param4: Sort type: ASC or DESC
+ * @return: Partition index
+ */
+int partition(COLUMN* col, int low, int high, int sort_dir)
 {
     COLUMN_TYPE* pivot = col->data[high];
     // Index of smaller element and Indicate
@@ -106,7 +114,8 @@ int partition(COLUMN* col, int low, int high)
     for (int j = low; j < high; j++)
     {
         // If current element is smaller than the pivot
-        if (compare(col->data[j], pivot, col->type) == -1)
+        if ((sort_dir == 1 && compare(col->data[j], pivot, col->type) < 0) ||
+            (sort_dir == -1 && compare(col->data[j], pivot, col->type) > 0))
         {
             // Increment index of smaller element
             i++;
@@ -117,22 +126,60 @@ int partition(COLUMN* col, int low, int high)
     return (i + 1);
 }
 
+/**
+ * @brief: Sort a column using quicksort algorithm
+ * @param1: Pointer to the column
+ * @param2: Lower bound index
+ * @param3: Upper bound index
+ * @param4: Sort type (ASC or DESC)
+ */
 void quick_sort(COLUMN* col, int low, int high, int sort_dir)
 {
     if (low < high)
     {
-        int pi = partition(col, low, high);
-
-        if (sort_dir == ASC)
-        {
-            quick_sort(col, low, pi - 1, sort_dir);
-            quick_sort(col, pi + 1, high, sort_dir);
-        }
-        else if (sort_dir == DESC)
-        {
-            quick_sort(col, low, pi - 1, sort_dir);
-            quick_sort(col, pi + 1, high, sort_dir);
-        }
+        int pi = partition(col, low, high, sort_dir);
+        quick_sort(col, low, pi - 1, sort_dir);
+        quick_sort(col, pi + 1, high, sort_dir);
     }
 }
 
+
+/**
+ * @brief: Sort a column according to a given order
+ * @param1: Pointer to the column to sort
+ * @param2: Sort type (ASC or DESC)
+ */
+void sort(COLUMN* col, int sort_dir)
+{
+    if (col == NULL || col->data == NULL || col->lSize <= 1)
+        return;
+
+    // Initialize the index array if not already done
+    if (col->index == NULL)
+    {
+        col->index = (unsigned long long *)malloc(col->lSize * sizeof(unsigned long long));
+        for (int i = 0; i < col->lSize; i++)
+        {
+            col->index[i] = i;
+        }
+    }
+
+    if (col->validIndex == 0) // Unsorted column
+    {
+        quick_sort(col, 0, col->lSize - 1, sort_dir);
+    }
+    else if (col->validIndex == -1) // Partially sorted column
+    {
+        insertion_sort(col, sort_dir);
+    }
+
+    // After sorting, mark the column as correctly sorted
+    col->validIndex = 1;
+    col->sortDir = sort_dir;
+
+    // Update the index array to reflect the sorted order
+    for (int i = 0; i < col->lSize; i++)
+    {
+        col->index[i] = i;
+    }
+}
