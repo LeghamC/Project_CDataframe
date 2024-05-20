@@ -224,30 +224,6 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/main.c.s
 .PHONY : main.c.s
 
-sort.obj: sort.c.obj
-.PHONY : sort.obj
-
-# target to build an object file
-sort.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/sort.c.obj
-.PHONY : sort.c.obj
-
-sort.i: sort.c.i
-.PHONY : sort.i
-
-# target to preprocess a source file
-sort.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/sort.c.i
-.PHONY : sort.c.i
-
-sort.s: sort.c.s
-.PHONY : sort.s
-
-# target to generate assembly for a file
-sort.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CDataFrame.dir\build.make CMakeFiles/CDataFrame.dir/sort.c.s
-.PHONY : sort.c.s
-
 vector.obj: vector.c.obj
 .PHONY : vector.obj
 
@@ -293,9 +269,6 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... sort.obj
-	@echo ... sort.i
-	@echo ... sort.s
 	@echo ... vector.obj
 	@echo ... vector.i
 	@echo ... vector.s

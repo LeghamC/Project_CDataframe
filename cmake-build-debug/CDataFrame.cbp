@@ -95,12 +95,6 @@
 		<Unit filename="C:/Users/lelia/CLionProjects/Project_CDataframe/main.c">
 			<Option target="CDataFrame"/>
 		</Unit>
-		<Unit filename="C:/Users/lelia/CLionProjects/Project_CDataframe/sort.c">
-			<Option target="CDataFrame"/>
-		</Unit>
-		<Unit filename="C:/Users/lelia/CLionProjects/Project_CDataframe/sort.h">
-			<Option target="CDataFrame"/>
-		</Unit>
 		<Unit filename="C:/Users/lelia/CLionProjects/Project_CDataframe/vector.c">
 			<Option target="CDataFrame"/>
 		</Unit>
