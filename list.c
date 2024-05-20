@@ -1,3 +1,10 @@
+/** ---------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's list's file - implement functions and operations to
+               manage and manipulate the double-linked list used for the dataframe
+-----------------------------------------------------------------------------------------*/
+
 #include <stdlib.h>
 #include "list.h"
 

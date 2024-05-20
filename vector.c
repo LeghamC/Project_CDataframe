@@ -1,3 +1,10 @@
+/** ---------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's vector's file - implement operations and functions to manipulate
+               and manage vectors which corresponds to our chosen structure type.
+-----------------------------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"

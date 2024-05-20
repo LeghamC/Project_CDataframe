@@ -1,3 +1,10 @@
+/** ---------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's dataframe - implement functions and operations to manage,
+               manipulate, and analyze data within a DataFrame structure.
+-----------------------------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

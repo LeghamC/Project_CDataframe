@@ -1,9 +1,15 @@
+/** ---------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's sort's file - implement sorting algorithms and related functions
+               to arrange the data within the columns of the DataFrame.
+-----------------------------------------------------------------------------------------*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 #include "sort.h"
-
 
 /**
  * @brief Compare two values in the column

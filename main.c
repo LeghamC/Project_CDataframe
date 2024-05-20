@@ -1,3 +1,11 @@
+/** ---------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's main's file - Allow use of the programs by coordinating the
+               creation, manipulation, and display of dataframes, their columns, and
+               the sorting and searching functionalities used for it.
+-----------------------------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "column.h"

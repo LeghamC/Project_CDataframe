@@ -1,3 +1,10 @@
+/** ---------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's column's file - implement functions and operations to
+               manage and manipulate individual columns used in the dataframe
+-----------------------------------------------------------------------------------------*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
