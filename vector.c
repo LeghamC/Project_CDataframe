@@ -106,8 +106,8 @@ int vec_comparison(VECTOR* v1, VECTOR* v2)
 
 int vec_magnitude_comparison(VECTOR* v1, VECTOR* v2)
 {
-    double magnitude1 = sqrt(v1->x * v1->x + v1->y * v1->y + v1->z * v1->z);
-    double magnitude2 = sqrt(v2->x * v2->x + v2->y * v2->y + v2->z * v2->z);
+    double magnitude1 = v1->x * v1->x + v1->y * v1->y + v1->z * v1->z;
+    double magnitude2 = v2->x * v2->x + v2->y * v2->y + v2->z * v2->z;
 
     if (magnitude1 < magnitude2) return -1;
     if (magnitude1 > magnitude2) return 1;

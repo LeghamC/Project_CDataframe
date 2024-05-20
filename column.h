@@ -50,8 +50,4 @@ int col_check_index(COLUMN *col);
 void col_update_index(COLUMN* col);
 int col_search_value(COLUMN* col, void* value);
 
-typedef struct{
-
-}C_DATAFRAME;
-
 #endif

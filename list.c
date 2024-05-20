@@ -11,9 +11,11 @@
 NODE* node_create(COLUMN* col, NODE* previous, NODE* next)
 {
     NODE* newNode = (NODE*)malloc(sizeof(NODE));
-    newNode->data = NULL;
-    newNode->next = NULL;
-    newNode->previous = NULL;
+    newNode->data = col;
+    newNode->previous = previous;
+    if (previous != NULL) previous->next = newNode;
+    newNode->next = next;
+    if (next != NULL) next->previous = newNode;
     return newNode;
 }
 

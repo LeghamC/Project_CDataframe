@@ -14,6 +14,4 @@ void quick_sort(COLUMN* col, int low, int high, int sort_dir);
 void sort(COLUMN* col, int sort_dir);
 
 
-
-
-#endif //CDATAFRAME_SORT_H
+#endif
