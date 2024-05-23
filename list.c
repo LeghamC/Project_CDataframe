@@ -6,16 +6,15 @@
 -----------------------------------------------------------------------------------------*/
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "list.h"
 
-NODE* node_create(COLUMN* col, NODE* previous, NODE* next)
+NODE* node_create(COLUMN* col)
 {
     NODE* newNode = (NODE*)malloc(sizeof(NODE));
     newNode->data = col;
-    newNode->previous = previous;
-    if (previous != NULL) previous->next = newNode;
-    newNode->next = next;
-    if (next != NULL) next->previous = newNode;
+    newNode->previous = NULL;
+    newNode->next = NULL;
     return newNode;
 }
 
@@ -70,7 +69,7 @@ void list_set_start(LIST* list, NODE* start)
 
 void list_set_end(LIST* list, NODE* end)
 {
-    list->first = end;
+    list->last = end;
 }
 
 int list_length(LIST* list)
@@ -78,7 +77,7 @@ int list_length(LIST* list)
     if (list->first == NULL) return 0;
     int length = 1;
     NODE* currentNode = list->first;
-    while (currentNode->next != NULL) {
+    while (currentNode != list->last) {
         length ++;
         currentNode = currentNode->next;
     }

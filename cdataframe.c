@@ -14,14 +14,20 @@
 #include "column.h"
 #include "vector.h"
 
-CDATAFRAME* cdf_create(ENUM_TYPE *cdftype, char** names, int size)
+CDATAFRAME* cdf_create(const ENUM_TYPE *cdftype, char** names, int size)
 {
     CDATAFRAME* newCdf = (CDATAFRAME*)list_create();
-    NODE* currentNode = newCdf->first;
+    NODE* currentNode = NULL;
     for (int i = 0; i < size; i ++) {
         COLUMN* newColumn = col_create(*(cdftype+i), *(names+i));
-        currentNode = node_create(newColumn, currentNode, NULL);
-        currentNode = currentNode->next;
+        NODE* newNode = node_create(newColumn);
+        if (i == 0) list_set_start(newCdf, newNode);        // THIS DOES NOT WORK.
+        else {
+            node_set_previous(newNode, currentNode);
+            node_set_next(currentNode, newNode);
+        }
+        list_set_end((LIST*)newCdf, newNode);
+        currentNode = newNode;
     }
     return newCdf;
 }
@@ -41,7 +47,7 @@ COLUMN* cdf_get_column(CDATAFRAME* cdf, int column)
 
 unsigned int cdf_rows_count(CDATAFRAME* cdf)
 {
-    if (cdf->first == NULL || cdf->first->data->data == NULL) return 0;
+    if (cdf->first == NULL) return 0;
     return cdf->first->data->lSize;
 }
 
@@ -60,24 +66,24 @@ void cdf_fill_with_user_inputs(CDATAFRAME* cdf)
             printf("%s (%d) : ", curCol->title, i);
             switch (curCol->type) {
                 case UINT:;
-                    scanf("%ld", (long*)(curCol->data)[i]); break;
+                    scanf("%u", &curCol->data[i]->uint_value); break;
                 case INT:;
-                    scanf("%d", (int*)(curCol->data)[i]); break;
+                    scanf("%d", &curCol->data[i]->int_value); break;
                 case CHAR:;
-                    scanf("%c", (char*)(curCol->data)[i]); break;
+                    scanf("%c", &curCol->data[i]->char_value); break;
                 case FLOAT:;
-                    scanf("%f", (float*)(curCol->data)[i]); break;
+                    scanf("%f", &curCol->data[i]->float_value); break;
                 case DOUBLE:;
-                    scanf("%lf", (double*)(curCol->data)[i]); break;
+                    scanf("%lf", &curCol->data[i]->double_value); break;
                 case STRING:;
-                    fgets((char*)(curCol->data)[i], STR_LENGTH, stdin); break;
+                    fgets(curCol->data[i]->string_value, STR_LENGTH, stdin); break;
                 case VEC:;      // NE PAS ENLEVER CE ; JSP PK FAUT LE METTRE MAIS SANS CA MARCHE PAS
                     VECTOR* newVec = vec_create(0, 0, 0);
                     vec_fill(newVec);
-                    curCol->data[i] = newVec;
+                    curCol->data[i]->vector_value = newVec;
                     break;
                 default:;
-                    scanf("%ld", (long*)(curCol->data)[i]); break;
+                    break;
             }
         }
     }
@@ -91,27 +97,22 @@ void cdf_hard_fill(CDATAFRAME* cdf)
             COLUMN* curCol = cdf_get_column(cdf, j);
             switch (curCol->type) {
                 case UINT:;
-                    unsigned int uint = 0;
-                    curCol->data[i] = &uint; break;
+                    curCol->data[i]->uint_value = 0; break;
                 case INT:;
-                    int integer = 0;
-                    curCol->data[i] = &integer; break;
+                    curCol->data[i]->int_value = 0; break;
                 case CHAR:;
-                    char character = 0;
-                    curCol->data[i] = &character; break;
+                    curCol->data[i]->char_value = '0'; break;
                 case FLOAT:;
-                    float floating = 0;
-                    curCol->data[i] = &floating; break;
+                    curCol->data[i]->float_value = 0.0; break;
                 case DOUBLE:;
-                    double doubleFloat = 0;
-                    curCol->data[i] = &doubleFloat; break;
+                    curCol->data[i]->double_value = 0.0; break;
                 case STRING:;
                     char* str = "abc";
-                    curCol->data[i] = &str; break;
+                    curCol->data[i]->string_value = str; break;
                 case VEC:;
-                    curCol->data[i] = vec_create(0, 0, 0); break;
+                    curCol->data[i]->vector_value = vec_create(0, 0, 0); break;
                 default:
-                    scanf("%ld", (long*)(curCol->data)[i]); break;
+                    break;
             }
         }
     }
@@ -123,8 +124,7 @@ void cdf_display_column_names(CDATAFRAME* cdf)
     printf("     |");
     for (int j = 0; j < cdf_columns_count(cdf); j++) {
         COLUMN *curCol = cdf_get_column(cdf, j);
-        printf(" %*s%s%*s |", (STR_LENGTH - strlen(curCol->title)) / 2, curCol->title,
-               (STR_LENGTH - strlen(curCol->title)) / 2);
+        printf(" %*s%s%*s |", (int)((STR_LENGTH - strlen(curCol->title)) / 2), "", curCol->title, (int)((STR_LENGTH - strlen(curCol->title)) / 2), "");
     }
     printf("\n");
 }
@@ -135,12 +135,13 @@ void cdf_print(CDATAFRAME* cdf) {
 
     // Core.
     for (int i = 0; i < cdf_rows_count(cdf); i++) {
-        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        printf("%-4d |", i + 1);
         for (int j = 0; j < colCount; j++) {
             char currentBuffer[STR_LENGTH];
             col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
-            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+            printf(" %s%*s |", currentBuffer, (int)(STR_LENGTH - strlen(currentBuffer)), "");
         }
+        printf("\n");
     }
 }
 
@@ -151,12 +152,13 @@ void cdf_print_rows_between(CDATAFRAME* cdf, int minRow, int maxRow)
 
     // Core.
     for (int i = minRow; i < maxRow; i++) {
-        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        printf("%-4d |", i + 1);
         for (int j = 0; j < colCount; j++) {
             char currentBuffer[STR_LENGTH];
             col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
-            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+            printf(" %s%*s |", currentBuffer, (int)(STR_LENGTH - strlen(currentBuffer)), "");
         }
+        printf("\n");
     }
 }
 
@@ -168,19 +170,20 @@ void cdf_print_columns_between(CDATAFRAME* cdf, int minColumn, int maxColumn)
     printf("     |");
     for (int j = minColumn; j < maxColumn; j++) {
         COLUMN *curCol = cdf_get_column(cdf, j);
-        printf(" %*s%s%*s |", (STR_LENGTH - strlen(curCol->title)) / 2, curCol->title,
-               (STR_LENGTH - strlen(curCol->title)) / 2);
+        printf(" %*s%s%*s |", (int)((STR_LENGTH - strlen(curCol->title)) / 2), "", curCol->title,
+               (int)((STR_LENGTH - strlen(curCol->title)) / 2), "");
     }
     printf("\n");
 
     // Core.
     for (int i = minColumn; i < maxColumn; i++) {
-        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        printf("%-4d |", i + 1);
         for (int j = 0; j < colCount; j++) {
             char currentBuffer[STR_LENGTH];
             col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
-            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+            printf(" %s%*s |", currentBuffer, (int)(STR_LENGTH - strlen(currentBuffer)), "");
         }
+        printf("\n");
     }
 }
 
@@ -192,18 +195,18 @@ void cdf_print_cr_between(CDATAFRAME* cdf, int minRow, int maxRow, int minColumn
     printf("     |");
     for (int j = minColumn; j < maxColumn; j++) {
         COLUMN *curCol = cdf_get_column(cdf, j);
-        printf(" %*s%s%*s |", (STR_LENGTH - strlen(curCol->title)) / 2, curCol->title,
-               (STR_LENGTH - strlen(curCol->title)) / 2);
+        printf(" %*s%s%*s |", (int)((STR_LENGTH - strlen(curCol->title)) / 2), "", curCol->title,
+               (int)((STR_LENGTH - strlen(curCol->title)) / 2), "");
     }
     printf("\n");
 
     // Core.
     for (int i = minColumn; i < maxColumn; i++) {
-        printf("%d%*s |", i + 1, 4 - (int) ((ceil(log10(i + 1)) + 1)));
+        printf("%d%*s |", i + 1, 4 - (int)((ceil(log10(i + 1)) + 1)), "");
         for (int j = minRow; j < maxRow; j++) {
             char currentBuffer[STR_LENGTH];
             col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
-            printf(" %s%*s |", currentBuffer, STR_LENGTH - strlen(currentBuffer));
+            printf(" %s%*s |", currentBuffer, (int)(STR_LENGTH - strlen(currentBuffer)), "");
         }
     }
 }
@@ -212,24 +215,7 @@ void cdf_add_row(CDATAFRAME* cdf, COLUMN_TYPE* values)
 {
     for (int i = 0; i < cdf_columns_count(cdf); i ++) {
         COLUMN* currentCol = cdf_get_column(cdf, i);
-        switch (currentCol->type) {
-            case UINT:;
-                col_insert_value(currentCol, &(values[i].uint_value)); break;
-            case INT:;
-                col_insert_value(currentCol, &(values[i]).int_value); break;
-            case FLOAT:;
-                col_insert_value(currentCol, &(values[i]).float_value); break;
-            case DOUBLE:;
-                col_insert_value(currentCol, &(values[i]).double_value); break;
-            case CHAR:;
-                col_insert_value(currentCol, &(values[i]).char_value); break;
-            case STRING:;
-                col_insert_value(currentCol, &(values[i]).string_value); break;
-            case VEC:;
-                col_insert_value(currentCol, &(values[i]).vector_value); break;
-            default:;
-                break;
-        }
+        col_insert_value(currentCol, &(values[i]));
     }
 }
 
@@ -266,7 +252,10 @@ int cdf_remove_row(CDATAFRAME* cdf, int index)
 
 void cdf_add_column(CDATAFRAME* cdf, COLUMN* col)
 {
-    node_create(col, cdf->last, NULL);
+    NODE* newNode = node_create(col);
+    node_set_next(cdf->last, newNode);
+    node_set_previous(newNode, cdf->last);
+    list_set_end(cdf, newNode);
 }
 
 int cdf_remove_column(CDATAFRAME* cdf, int index)

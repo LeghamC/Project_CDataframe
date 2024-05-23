@@ -1,3 +1,11 @@
+/** -----------------------------------------------------------------------------------------
+# Name:        CDataframe
+# Author:      BABOULAT Léandre - GHEZALI Lélia
+# Purpose:     Project's main's file - Allow use of the programs by coordinating the
+               creation, manipulation, and display of dataframes, their columns, and
+               the sorting and searching functionalities used for it.
+----------------------------------------------------------------------------------------- **/
+
 #ifndef CDATAFRAME_H
 #define CDATAFRAME_H
 
@@ -5,7 +13,7 @@
 #include "column.h"
 typedef LIST CDATAFRAME;
 
-CDATAFRAME* cdf_create(ENUM_TYPE *cdftype, char** names, int size);
+CDATAFRAME* cdf_create(const ENUM_TYPE *cdftype, char** names, int size);
 void cdf_delete(CDATAFRAME** cdf);
 unsigned int cdf_rows_count(CDATAFRAME* cdf);
 unsigned int cdf_columns_count(CDATAFRAME* cdf);

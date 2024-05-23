@@ -14,7 +14,7 @@ typedef struct {
     NODE* last;
 }LIST;
 
-NODE* node_create(COLUMN* col, NODE* previous, NODE* next);
+NODE* node_create(COLUMN* col);
 void node_delete(NODE* node);
 void node_set_value(NODE* node, COLUMN* value);
 void node_set_next(NODE* node, NODE* next);

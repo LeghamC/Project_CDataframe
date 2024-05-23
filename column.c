@@ -38,7 +38,7 @@ COLUMN* col_create(ENUM_TYPE type, char* title)
 * @param2: Pointer to the value to insert
 * @return: 1 if the value is correctly inserted 0 otherwise
 */
-int col_insert_value(COLUMN *col, void *value)
+int col_insert_value(COLUMN *col, COLUMN_TYPE* value)
 {
     // Check the pointers
     if (col == NULL) return 0;
@@ -67,7 +67,7 @@ int col_insert_value(COLUMN *col, void *value)
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the uint value into allocated memory
-            (col->data)[col->lSize]->uint_value = *((unsigned int *) value);
+            (col->data)[col->lSize]->uint_value = value->uint_value;
             break;
 
         case INT:
@@ -76,7 +76,7 @@ int col_insert_value(COLUMN *col, void *value)
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the int value into allocated memory
-            (col->data)[col->lSize]->int_value = *((int *) value);
+            (col->data)[col->lSize]->int_value = value->int_value;
             break;
 
         case CHAR:
@@ -85,7 +85,7 @@ int col_insert_value(COLUMN *col, void *value)
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the character value into allocated memory
-            (col->data)[col->lSize]->char_value = *((char *) value);
+            (col->data)[col->lSize]->char_value = value->char_value;
             break;
 
         case FLOAT:
@@ -94,7 +94,7 @@ int col_insert_value(COLUMN *col, void *value)
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the float value into allocated memory
-            (col->data)[col->lSize]->float_value = *((float *) value);
+            (col->data)[col->lSize]->float_value = value->float_value;
             break;
 
         case DOUBLE:
@@ -103,7 +103,7 @@ int col_insert_value(COLUMN *col, void *value)
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the double value into allocated memory
-            (col->data)[col->lSize]->double_value = *((double *) value);
+            (col->data)[col->lSize]->double_value = value->double_value;
             break;
 
         case STRING:
@@ -114,7 +114,7 @@ int col_insert_value(COLUMN *col, void *value)
 
             // Copy the string value into allocated memory
             // strncpy instead of strcpy to prevent buffer with more characters than allowed by STR_LENGTH
-            strncpy((col->data)[col->lSize]->string_value, (char*)value, STR_LENGTH);
+            strncpy((col->data)[col->lSize]->string_value, value->string_value, STR_LENGTH);
             ((char *)(col->data)[col->lSize])[STR_LENGTH] = '\0';
             break;
 
@@ -125,7 +125,7 @@ int col_insert_value(COLUMN *col, void *value)
             if ((col->data)[col->lSize] == NULL) return 0;
 
             // Copy the vector value into allocated memory
-            col->data[col->lSize]->vector_value = (VECTOR *)value;
+            col->data[col->lSize]->vector_value = value->vector_value;
             break;
         }
 
@@ -188,7 +188,7 @@ void col_convert_value(COLUMN* column, unsigned int index, char* str, int size)
         case DOUBLE:
             snprintf(str, size, "%lf", (column->data)[index]->double_value);
             break;
-        case STRING:
+        case STRING:;
             strncpy(str, (column->data)[index]->string_value, size);
             break;
         case VEC:;
