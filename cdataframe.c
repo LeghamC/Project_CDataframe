@@ -64,6 +64,7 @@ void cdf_fill_with_user_inputs(CDATAFRAME* cdf)
         for (int j = 0; j < colCount; j ++) {
             COLUMN* curCol = cdf_get_column(cdf, j);
             printf("%s (%d) : ", curCol->title, i);
+            fflush(stdin);
             switch (curCol->type) {
                 case UINT:;
                     scanf("%u", &curCol->data[i]->uint_value); break;
@@ -176,9 +177,9 @@ void cdf_print_columns_between(CDATAFRAME* cdf, int minColumn, int maxColumn)
     printf("\n");
 
     // Core.
-    for (int i = minColumn; i < maxColumn; i++) {
+    for (int i = 0; i < cdf_rows_count(cdf); i++) {
         printf("%-4d |", i + 1);
-        for (int j = 0; j < colCount; j++) {
+        for (int j = minColumn; j < maxColumn; j++) {
             char currentBuffer[STR_LENGTH];
             col_convert_value(cdf_get_column(cdf, j), i, currentBuffer, STR_LENGTH);
             printf(" %s%*s |", currentBuffer, (int)(STR_LENGTH - strlen(currentBuffer)), "");
@@ -276,9 +277,7 @@ int cdf_rename_column(CDATAFRAME* cdf, int index, char* newName)
     if (index >= colCount || index < 0) return 0;
 
     COLUMN* curCol = cdf_get_column(cdf, index);
-    free(curCol->title);
     curCol->title = newName;
-
     return 1;
 }
 
@@ -366,13 +365,14 @@ int cdf_get_number_of_values_greater(CDATAFRAME* cdf, ENUM_TYPE type, COLUMN_TYP
                 case UINT:;
                     if (value->uint_value > (curCol->data[j])->uint_value) count++; break;
                 case INT:;
-                    if (value->int_value > (curCol->data[j])->int_value) count++; break;
+                    printf("%d > %d : %d\n", value->int_value, (curCol->data[j])->int_value, value->int_value > (curCol->data[j])->int_value);
+                    if (value->int_value < (curCol->data[j])->int_value) count++; break;
                 case FLOAT:;
-                    if (value->float_value > (curCol->data[j])->float_value) count++; break;
+                    if (value->float_value < (curCol->data[j])->float_value) count++; break;
                 case DOUBLE:;
-                    if (value->double_value > (curCol->data[j])->double_value) count++; break;
+                    if (value->double_value < (curCol->data[j])->double_value) count++; break;
                 case CHAR:;
-                    if (value->char_value > (curCol->data[j])->char_value) count++; break;
+                    if (value->char_value < (curCol->data[j])->char_value) count++; break;
                 case STRING:;
                     if (strcmp(value->string_value, (char*)curCol->data[j]) < 0) count++; break;
                 case VEC:;
@@ -399,15 +399,15 @@ int cdf_get_number_of_values_smaller(CDATAFRAME* cdf, ENUM_TYPE type, COLUMN_TYP
         for (int j = 0; j < rowsCount; j ++) {
             switch (type) {
                 case UINT:;
-                    if (value->uint_value < (curCol->data[j])->uint_value) count++; break;
+                    if (value->uint_value > (curCol->data[j])->uint_value) count++; break;
                 case INT:;
-                    if (value->int_value < (curCol->data[j])->int_value) count++; break;
+                    if (value->int_value > (curCol->data[j])->int_value) count++; break;
                 case FLOAT:;
-                    if (value->float_value < (curCol->data[j])->float_value) count++; break;
+                    if (value->float_value > (curCol->data[j])->float_value) count++; break;
                 case DOUBLE:;
-                    if (value->double_value < (curCol->data[j])->double_value) count++; break;
+                    if (value->double_value > (curCol->data[j])->double_value) count++; break;
                 case CHAR:;
-                    if (value->char_value < (curCol->data[j])->char_value) count++; break;
+                    if (value->char_value > (curCol->data[j])->char_value) count++; break;
                 case STRING:;
                     if (strcmp(value->string_value, (char*)curCol->data[j]) > 0) count++; break;
                 case VEC:;
@@ -427,7 +427,7 @@ COLUMN_TYPE* cdf_get_value(CDATAFRAME* cdf, int row, int column)
     return cdf_get_column(cdf, column)->data[row];
 }
 
-int cdf_replace_value(CDATAFRAME* cdf, int row, int column, void* newValue)
+int cdf_replace_value(CDATAFRAME* cdf, int row, int column, COLUMN_TYPE* newValue)
 {
     if (row >= cdf_rows_count(cdf) || column >= cdf_columns_count(cdf)) return 0;
     cdf_get_column(cdf, column)->data[row] = newValue;

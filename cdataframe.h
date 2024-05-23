@@ -34,7 +34,7 @@ int cdf_get_number_of_values_equal(CDATAFRAME* cdf, ENUM_TYPE type, COLUMN_TYPE*
 int cdf_get_number_of_values_greater(CDATAFRAME* cdf, ENUM_TYPE type, COLUMN_TYPE* value);
 int cdf_get_number_of_values_smaller(CDATAFRAME* cdf, ENUM_TYPE type, COLUMN_TYPE* value);
 COLUMN_TYPE* cdf_get_value(CDATAFRAME* cdf, int row, int column);
-int cdf_replace_value(CDATAFRAME* cdf, int row, int columns, void* newValue);
+int cdf_replace_value(CDATAFRAME* cdf, int row, int columns, COLUMN_TYPE* newValue);
 void cdf_display_column_names(CDATAFRAME* cdf);
 COLUMN_TYPE* cdf_get_row(char* line);
 void cdf_load_csv(char* fileName);
